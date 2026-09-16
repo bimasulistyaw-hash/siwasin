@@ -282,13 +282,36 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A["Sekretariat & Irban review\ndaftar OPD berdasar gradasi risiko"]
-    A --> B["Tetapkan Obyek Pemeriksaan\nObrik per Jenis Pengawasan:\nAudit / Monitoring / Reviu / Pengawasan"]
-    B --> C["Pilih Master Data Baku:\nJenis Pengawasan, Jenis Kegiatan,\nBidang Pengampu"]
-    C --> D["Hubungkan ke Relasi Hierarki:\nTujuan → Sasaran → Output\nbukan teks string bebas"]
-    D --> E["Tetapkan Kategori PKPT:\nMandatori atau Non-Mandatori"]
-    E --> F([Lanjut ke Fase 3:\nPerencanaan PKPT])
+    A(["Dari Fase 1B:\nDashboard Peta Risiko"])
+    A --> REV["Sekretariat & Irban review OPD\nprioritas (Q1 & Q2)"]
+    
+    REV --> OVERRIDE{"Ada Instruksi Khusus\n(Pimpinan/KPK/Aduan)?"}
+    OVERRIDE -- Ya --> MANDATORI["Fitur Manual Override:\nTambahkan OPD Risiko Rendah\nberikan flag 'Mandatori' & Justifikasi"]
+    OVERRIDE -- Tidak --> TIPE_OBRIK
+    MANDATORI --> TIPE_OBRIK
+    
+    TIPE_OBRIK{"Tipe Obrik\n(Sifat Kegiatan)?"}
+    TIPE_OBRIK -- Single --> O1["Pilih 1 Entitas\n(Audit Kinerja Reguler)"]
+    TIPE_OBRIK -- Multi --> O2["Pilih Multi-Entitas\n(Audit Tematik lintas OPD)"]
+    
+    O1 & O2 --> META["Lengkapi Master Data Dinamis:\nJenis Kegiatan, Bidang Pengampu,\nRelasi Tujuan → Sasaran → Output"]
+    
+    META --> CAP["Kalkulator Kapasitas (Mini Dashboard):\nSistem bandingkan Estimasi HP\nvs Sisa Kapasitas Auditor Tersedia"]
+    
+    CAP --> CHECK{"Kapasitas HP\nMencukupi?"}
+    CHECK -- Tidak --> REDUCE["Irban kurangi jumlah Obrik\natau ubah jenis pengawasan"]
+    REDUCE --> CAP
+    
+    CHECK -- Ya --> F([Lanjut ke Fase 3:\nPerencanaan PKPT])
 ```
+
+> **Fitur Dinamis Penetapan Obyek Audit:**
+> Untuk mencegah proses yang kaku, Fase 2 dilengkapi 4 kapabilitas dinamis:
+> 1. **Manual Override (Jalur Mandatori)**: Memungkinkan Sekretariat memasukkan OPD yang berisiko rendah (Kuadran Hijau) ke dalam PKPT jika ada instruksi mendadak dari Pimpinan/KPK/Aduan Masyarakat, dengan kewajiban mengisi kolom justifikasi.
+> 2. **Audit Tematik (Multi-Obrik)**: Satu entri PKPT (1 set Tujuan & Sasaran) dapat memayungi lebih dari 1 OPD sekaligus, berguna untuk pengawasan isu lintas sektoral (contoh: *Audit Stunting*, *Pengentasan Kemiskinan*).
+> 3. **Mini Dashboard Kapasitas HP**: Mencegah *overbooking*. Sistem akan otomatis menjumlahkan estimasi Hari Pengawasan (HP) yang dibutuhkan dari seluruh Obrik yang dipilih, lalu membandingkannya dengan ketersediaan SDM Auditor.
+> 4. **Master Data Management Terpusat**: Hirarki `Tujuan → Sasaran → Output` dan `Jenis Kegiatan` bersifat dinamis (*tree-based*) yang dapat dikonfigurasi oleh Superadmin tanpa mengubah *source code*, untuk mengantisipasi perubahan RPJMD/Regulasi di masa depan.
+
 
 ---
 
