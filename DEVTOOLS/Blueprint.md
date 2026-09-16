@@ -504,11 +504,16 @@ flowchart TD
 
 ## A.10. Manajemen Risiko & Mitigasi Bisnis
 
-| ID | Risiko Bisnis | Probabilitas | Dampak | Strategi Mitigasi | Pemilik |
+| ID | Risiko Bisnis / Operasional | Probabilitas | Dampak | Strategi Mitigasi (Sistem SIWASIN) | Tanggung Jawab |
 |---|---|---|---|---|---|
-| `R-01` | Keterlambatan respon approval Surat Tugas oleh Inspektur saat dinas luar | Sedang | Tinggi | Menyediakan Mobile-responsive Quick Approval Panel & Notifikasi SSO | Inspektur |
-| `R-02` | Ketidaksesuaian data NIP/Eselon pegawai dengan SIMPEG | Rendah | Sedang | Mengimplementasikan Caching Data SIMPEG dengan mekanisme fallback sync | Diskominfo |
-| `R-03` | Pengunggahan dokumen laporan ilegal / mengandung malware | Rendah | Tinggi | Validasi Magic Bytes biner pada MinIO storage & pembatasan format PDF/DOCX | Diskominfo |
+| `R-01` | **Manipulasi Jadwal (Bypass Ilegal)**: Auditor/Irban merevisi tim atau tanggal di lapangan tanpa sepengetahuan Inspektur. | Sedang | Tinggi | **State Machine Zero-Bypass**: Memutus *state* aktif dan otomatis mengembalikan status dokumen ke `WAITING_DALTEK` / `INSPEKTUR` tiap ada *edit*. | Sistem (MOD-03) |
+| `R-02` | **Bentrok Jadwal (Double Jobbing)**: Auditor berada di 2 tempat bersamaan karena kelalaian ploting jadwal. | Tinggi | Sedang | **Clash Detection Algorithm**: Sistem memberikan *Hard Block* pada tanggal yang beririsan. Hanya bisa diterobos lewat jalur *Override* dengan Justifikasi. | Irban & Sistem |
+| `R-03` | **Overbooking Anggaran/SDM**: OPD berisiko tinggi terlalu banyak dipilih, melebihi sisa kapasitas Hari Pengawasan (HP) APIP. | Sedang | Tinggi | **Mini Dashboard Kapasitas**: Kalkulasi *real-time* estimasi HP vs ketersediaan HP Auditor sebelum Obrik disahkan di Fase 2. | Sekretariat |
+| `R-04` | **"Audit Siluman" (Unaccounted Mandatori)**: Audit dadakan disisipkan ke sistem tanpa dasar perintah yang jelas. | Rendah | Tinggi | **Jalur Non-PKPT Strict**: Wajib mengunggah (upload) dokumen PDF surat perintah dasar (Walikota/KPK) sebagai syarat *submit*. | Inspektur |
+| `R-05` | **Kelelahan Auditor (Burnout)**: Penugasan seorang auditor melebihi batas wajar dalam satu Surat Tugas. | Tinggi | Sedang | **Hard-Cap Constraint 16 HP**: UI dan *Backend* memblokir *submit* form jika durasi penugasan > 16 HP. | Sistem (MOD-03) |
+| `R-06` | **Keterlambatan Approval (Bottleneck)**: Proses terhenti berhari-hari karena Inspektur sedang dinas luar. | Sedang | Tinggi | Menyediakan *Mobile-responsive Quick Approval Panel* yang terhubung dengan notifikasi SSO. | Inspektur |
+| `R-07` | **Kebocoran Dokumen LHA**: Pihak luar atau staf biasa berhasil mengunduh laporan hasil audit yang sifatnya sangat rahasia. | Rendah | Tinggi | **Strict RBAC Guard**: Middleware mengecek level jabatan SIMPEG (Hanya Eselon IVB/Irban/Inspektur). URL berkas menggunakan *MinIO Presigned URL* berbatas waktu. | Superadmin |
+| `R-08` | **Injeksi Malware via Bukti Laporan**: Auditee mengunggah bukti sanggahan berisi *script* berbahaya (Ransomware). | Rendah | Tinggi | **Magic Bytes Validation**: Sistem *backend* mengecek *binary header* file (wajib PDF/DOCX murni), bukan sekadar mengecek ekstensi `.pdf`. | Diskominfo |
 
 ---
 
