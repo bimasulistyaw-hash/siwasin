@@ -488,13 +488,19 @@ flowchart TD
 
 ## A.9. Analisis Kesenjangan (Gap Analysis)
 
-| Area Proses | Kondisi As-Is | Kondisi To-Be SIWASIN | Gap & Aksi Perbaikan |
+| Area Proses | Kondisi As-Is (Saat Ini) | Kondisi To-Be SIWASIN | Gap & Aksi Perbaikan |
 |---|---|---|---|
-| **Penilaian Risiko** | Manual spreadsheet, parameter kualitatif tidak seragam | Gradasi risiko otomatis terhitung per semester/tahun berdasarkan parameter audit kinerja | Membangun Engine Perhitungan Risk Mapping di MOD-02 |
-| **Validasi HP** | Sering melebihi 16 HP karena alokasi manual | System-enforced validation (Hard Cap 16 HP) saat submit PKPT & Surat Tugas | Menambahkan constraint backend & UI validator HP di MOD-02/03 |
-| **Approval Inspektur** | Revisi penugasan di lapangan sering tidak tercatat | Zero-bypass workflow approval: setiap perubahan data memicu status `WAITING_INSPEKTUR` | Membangun State Machine Lifecycle Approval di MOD-03 |
-| **Relasi Target Output** | Tujuan & Sasaran hanya string mentah terpisah | Relasi hirarki `Tujuan` $\rightarrow$ `Sasaran` $\rightarrow$ `Output` terstruktur dengan ID | Membangun Master Data Relasional Hierarki di MOD-01 |
-| **Akses Laporan** | Berkas fisik/file server rentan diakses pihak tak berwenang | RBAC strict enforcement: hanya Inspektur, Sekretaris, Irban, & Eselon IVB SIMPEG | Mengaktifkan Middleware Authorization Guard di MOD-04 |
+| **Penilaian Risiko (Risk Scoring)** | Manual spreadsheet, hanya mengandalkan intuisi atau pembobotan sederhana 1 dimensi. | **Risk Scoring Engine** (Matriks X & Y): Kalkulasi otomatis 3 parameter (Pagu, TLHP, SPIP) menghasilkan pengelompokan kuadran (Q1-Q4) di Scatter Plot. | Membangun *Algoritma Kalkulasi Matriks Koordinat* & *Dashboard Scatter Plot* di MOD-02 |
+| **Pendaftaran Obyek Audit** | 1 entri PKPT hanya bisa untuk 1 instansi, tidak mendukung isu lintas sektoral. | **Audit Tematik (Multi-Obrik)**: 1 entri Perencanaan (Tujuan & Sasaran) dapat menaungi banyak OPD sekaligus. | Mendesain skema relasi database *One-to-Many* antara PKPT dan Master Entitas di MOD-02 |
+| **Kapasitas SDM (Budgeting)** | Penetapan target OPD tidak melihat ketersediaan jumlah Auditor & alokasi waktu. Sering *overbooking*. | **Mini Dashboard Kapasitas HP**: Sistem membandingkan Estimasi HP yang dibutuhkan vs Sisa Kapasitas Auditor sebelum penetapan Obrik final. | Membuat *Kalkulator Agregasi HP* secara *real-time* di UI Fase 2 (MOD-02) |
+| **Penugasan Mendadak (KPK/Pimpinan)** | Audit insidental mengacak-acak kalender utama PKPT, sulit dilacak pemisahannya. | **Jalur Khusus (Fast-Track) Audit Non-PKPT**: Fitur *bypass* Fase 1 & 2, langsung masuk penjadwalan dengan *flag* khusus **Mandatori**. | Memisahkan form *entry point* UI untuk PKPT Reguler vs Audit Non-PKPT di MOD-03 |
+| **Manajemen Jadwal Auditor** | Pengecekan jadwal masih manual, sering terjadi bentrok (1 auditor di 2 tim bersamaan). | **Clash Detection Otomatis**: Sistem menolak input auditor jika bentrok jadwal (*Hard Block*). | Membangun algoritma validasi irisan tanggal (*date range overlap*) di *Backend* MOD-03 |
+| **Perangkapan Tugas Auditor** | Auditor nyambi di 2 tim tidak tercatat resmi, menyulitkan audit kinerja internal. | **Fitur Override Clash**: Sistem izinkan bentrok jadwal HANYA untuk penugasan Mandatori, dengan syarat Irban mengisi *Form Justifikasi*. | Menambahkan field `justifikasi_override` dan *bypass logic* khusus *flag* Mandatori di MOD-03 |
+| **Validasi Kuota HP** | Sering melebihi 16 HP per orang karena dihitung pakai kalkulator manual. | **System-Enforced Validation (Hard Cap)**: Sistem memblokir form *submit* jika HP Ketua/Anggota melebihi batas (maks 16 HP). | Menambahkan *constraint backend* & UI *validator limit* HP di MOD-03 |
+| **Approval Inspektur** | Revisi penugasan (ganti orang/tanggal) di lapangan jalan terus, Inspektur tidak tahu. | **Zero-Bypass Workflow**: Setiap ada klik edit pada tim/jadwal, status otomatis *reset* mundur ke `WAITING_DALTEK` / `INSPEKTUR`. | Membangun *State Machine Lifecycle Approval* yang ketat di MOD-03 |
+| **Master Data Hierarki** | Sasaran dan Tujuan di-input berulang berupa *string/text* mentah. Rawan salah ketik. | **Master Data Management**: Relasi hirarki `Tujuan` $\rightarrow$ `Sasaran` $\rightarrow$ `Output` bersifat dinamis (*tree-based*) dan terpusat. | Membangun UI Manajemen Master Data Terstruktur & *Dynamic Select Box* di MOD-01 |
+| **Klarifikasi Temuan (Auditee)** | Proses tanggapan temuan dilakukan via WhatsApp atau kirim berkas fisik, tidak terekam historinya. | **Ruang Klarifikasi Interaktif**: Fitur diskusi terenkripsi (seperti forum/thread) antara Auditor & OPD sebelum laporan final. | Mengembangkan *Chat/Thread Module* dengan lampiran bukti di dalam sistem LHA (MOD-05) |
+| **Akses Laporan Rahasia** | Berkas fisik/PDF LHA sering beredar bebas atau rentan diakses pihak tak berwenang. | **Strict RBAC Enforcement**: Hanya Inspektur, Sekretaris, Irban, & Eselon IVB SIMPEG yang bisa buka/unduh *file* LHA final. | Mengaktifkan *Middleware Authorization Guard* terintegrasi SIMPEG di MOD-04 |
 
 ## A.10. Manajemen Risiko & Mitigasi Bisnis
 
