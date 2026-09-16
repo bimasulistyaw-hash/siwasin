@@ -546,6 +546,12 @@ Menjadi platform digital pengawasan internal Aparat Pengawasan Intern Pemerintah
 | `US-07` | Sebagai Ketua Tim, saya ingin menginput realisasi tanggal, HP, dan mengunggah LHP setelah audit selesai | `P-04` | **Must Have** | `BR-11` |
 | `US-08` | Sebagai Inspektur/Sekretaris/Irban/Eselon IVB, saya ingin mengunduh & membaca berkas Laporan Pengawasan secara aman | `P-01`, `P-02`, `P-03` | **Must Have** | `BR-10`, `BR-12` |
 | `US-09` | Sebagai Sekretaris, saya ingin melihat Matriks Realisasi vs Perencanaan PKPT dengan indikator status triwulanan | `P-02` | **Must Have** | `BR-11` |
+| `US-10` | Sebagai Sekretariat, saya ingin melihat *Mini Dashboard Kalkulator Kapasitas HP* agar alokasi Obrik tidak melampaui ketersediaan SDM Auditor | `P-02` | **Must Have** | `BR-01` (Gap) |
+| `US-11` | Sebagai Irban, saya ingin membuat *Audit Tematik* (Multi-Obrik) pada 1 penugasan untuk mengawasi isu strategis lintas sektoral | `P-03` | **Must Have** | `BR-17` |
+| `US-12` | Sebagai Irban, saya ingin menginput penugasan Mandatori (*Audit Non-PKPT*) untuk mengakomodir perintah mendadak KPK tanpa melalui form Risk Scoring reguler | `P-03` | **Must Have** | `BR-03` |
+| `US-13` | Sebagai Sistem, saya wajib memblokir input auditor yang bentrok jadwal (*Clash Detection*) pada rentang tanggal yang sama | Sistem | **Must Have** | `BR-19` |
+| `US-14` | Sebagai Irban, saya ingin melakukan *Override Clash* pada ST Mandatori dengan mengisi Form Justifikasi agar auditor dapat merangkap tugas | `P-03` | **Must Have** | `BR-19` |
+| `US-15` | Sebagai Ketua Tim & Admin OPD, saya ingin menggunakan Ruang Klarifikasi Interaktif (Thread/Chat) untuk membahas temuan sementara sebelum difinalisasi | `P-04`, `P-05` | **Must Have** | `BR-22` |
 
 ## B.4. Standar UI Apple HIG & Pola Navigasi
 
@@ -595,6 +601,20 @@ Scenario: Perubahan data penugasan tanpa approval Inspektur
   Given Perencanaan penugasan berstatus "APPROVED"
   When Irban melakukan pengubahan anggota tim atau jadwal pelaksanaan
   Then Status Surat Tugas otomatis berbalik menjadi "WAITING_INSPEKTUR" dan mengunci cetak dokumen resmi hingga disetujui ulang
+
+### Feature 3: Clash Detection & Justifikasi Override (Non-PKPT)
+```gherkin
+Scenario: Sistem menolak auditor yang bentrok jadwal (Audit Reguler)
+  Given Auditor "Budi" sudah terdaftar di ST Reguler Dinas A pada tanggal 1-5 Oktober
+  When Irban mencoba memasukkan "Budi" ke ST Reguler Kecamatan B pada rentang waktu yang beririsan
+  Then Sistem memunculkan alert "Jadwal Budi bentrok" dan memblokir tombol Submit
+
+Scenario: Sistem mengizinkan perangkapan tugas khusus ST Mandatori (Non-PKPT)
+  Given Auditor "Budi" sudah terdaftar di ST Reguler pada tanggal 1-5 Oktober
+  And Irban sedang menyusun ST Mandatori KPK (Audit Non-PKPT)
+  When Irban memasukkan "Budi" ke ST Mandatori pada rentang waktu yang sama
+  Then Sistem memunculkan opsi "Override Clash" yang mewajibkan Irban mengisi teks justifikasi
+  And setelah justifikasi diisi, sistem mengizinkan Submit dan Budi resmi merangkap tugas
 ```
 
 ---
