@@ -355,7 +355,17 @@ flowchart TD
     VAL -- HP melebihi batas --> ERR["Sistem tolak & tampilkan alert:\nHP melebihi batas maksimal\nIrban wajib revisi"]
     ERR --> D1
 
-    VAL -- HP valid --> DOC{Jenis dokumen\npenugasan?}
+    VAL -- HP valid --> CLASH{"Ada bentrok jadwal\nAuditor dengan ST lain\ndi rentang tanggal sama?"}
+    
+    CLASH -- Tidak --> DOC{Jenis dokumen\npenugasan?}
+    
+    CLASH -- Ya --> MANDATORY_CHECK{"Apakah ST ini\nberlabel Mandatori?"}
+    
+    MANDATORY_CHECK -- Tidak --> ERR_CLASH["Sistem tolak & tampilkan alert:\nAuditor bentrok jadwal (Clash)\nIrban wajib ganti personel/jadwal"]
+    ERR_CLASH --> D1
+    
+    MANDATORY_CHECK -- Ya --> OVERRIDE["Muncul Opsi Override Clash\nIrban wajib mengisi\nForm Justifikasi Perangkapan"]
+    OVERRIDE --> DOC
 
     DOC -- Audit atau Pengawasan --> ST["Susun Draft\nSurat Tugas Resmi Besar\ndengan nomor ST"]
     DOC -- Monitoring gabung ke ST --> ST
@@ -365,6 +375,11 @@ flowchart TD
     ND --> SAVE
     SAVE --> NEXT([Lanjut ke Fase 4:\nApproval Berjenjang])
 ```
+
+> **Penanganan Penugasan Insidental & Bentrok Jadwal (Clash Detection):**
+> 1. **Penugasan Non-PKPT**: Jika ada permintaan audit mendadak (Aduan, APH, KPK), Irban dapat melewati Fase 1 & 2 dengan menekan tombol **Buat Penugasan Insidental**. Penugasan ini otomatis mendapat *flag* **Mandatori**.
+> 2. **Clash Detection**: Sistem SIWASIN memiliki algoritma deteksi bentrok (`BR-19`). Jika Auditor X didaftarkan di ST baru namun jadwalnya bertabrakan dengan ST lain yang sedang *In Progress* atau *Approved*, sistem otomatis menolak (*Hard Block*).
+> 3. **Override Clash (Perangkapan Tugas)**: Pengecualian diberikan khusus untuk penugasan berlabel **Mandatori**. Sistem akan memunculkan opsi *Override*, mengizinkan auditor merangkap tugas dengan syarat Irban wajib mengisi justifikasi (misal: "Hanya diperbantukan sementara untuk tim KPK"). Ke depan, ini juga membantu pelacakan *Audit Trail*.
 
 ---
 
