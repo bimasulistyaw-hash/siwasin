@@ -601,6 +601,7 @@ Scenario: Perubahan data penugasan tanpa approval Inspektur
   Given Perencanaan penugasan berstatus "APPROVED"
   When Irban melakukan pengubahan anggota tim atau jadwal pelaksanaan
   Then Status Surat Tugas otomatis berbalik menjadi "WAITING_INSPEKTUR" dan mengunci cetak dokumen resmi hingga disetujui ulang
+```
 
 ### Feature 3: Clash Detection & Justifikasi Override (Non-PKPT)
 ```gherkin
