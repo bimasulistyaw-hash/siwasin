@@ -1,0 +1,175 @@
+/* Dibuat oleh Bidang Sistem Informasi dan Statistik Dinas Komunikasi Informatika dan Persandian Kota Yogyakarta */
+/**
+ * DESIGN SYSTEM — MOTION TOKENS
+ * Berbasis Apple HIG Animation Principles
+ * Referensi: https://developer.apple.com/design/human-interface-guidelines/motion
+ *
+ * Prinsip:
+ * - Animasi harus terasa alami, bukan dekoratif
+ * - Gunakan spring/ease-out untuk gerakan "fisik" (masuk, geser)
+ * - Gunakan ease-in-out untuk state transition (expand, collapse)
+ * - Respektif terhadap prefers-reduced-motion
+ */
+
+/* ─────────────────────────────────────────
+   DURASI
+───────────────────────────────────────── */
+:root {
+  --duration-instant:    50ms;   /* feedback cepat: ripple, focus ring */
+  --duration-fast:       100ms;  /* hover, active state */
+  --duration-normal:     200ms;  /* transisi komponen: dropdown buka */
+  --duration-moderate:   300ms;  /* modal masuk, slide panel */
+  --duration-slow:       450ms;  /* page transition, sheet */
+  --duration-deliberate: 600ms;  /* onboarding, splash */
+}
+
+/* ─────────────────────────────────────────
+   EASING CURVES
+   Mengikuti Apple's cubic-bezier yang digunakan di iOS/macOS
+───────────────────────────────────────── */
+:root {
+  /* Standard — umum untuk elemen yang masuk/keluar */
+  --ease-standard:    cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Decelerate (ease-out) — elemen masuk ke layar */
+  --ease-enter:       cubic-bezier(0.00, 0.00, 0.20, 1.00);
+
+  /* Accelerate (ease-in) — elemen keluar dari layar */
+  --ease-exit:        cubic-bezier(0.40, 0.00, 1.00, 1.00);
+
+  /* Emphasized — perubahan state yang perlu perhatian */
+  --ease-emphasized:  cubic-bezier(0.20, 0.00, 0.00, 1.00);
+
+  /* Spring-like — mirip animasi iOS (bounce halus) */
+  --ease-spring:      cubic-bezier(0.34, 1.56, 0.64, 1.00);
+
+  /* Linear — progress bar, skeleton loading */
+  --ease-linear:      linear;
+}
+
+/* ─────────────────────────────────────────
+   TRANSITION PRESETS
+   Gunakan langsung di komponen CSS
+───────────────────────────────────────── */
+:root {
+  --transition-color:    color var(--duration-fast) var(--ease-standard),
+                         background-color var(--duration-fast) var(--ease-standard),
+                         border-color var(--duration-fast) var(--ease-standard);
+
+  --transition-opacity:  opacity var(--duration-normal) var(--ease-standard);
+
+  --transition-shadow:   box-shadow var(--duration-normal) var(--ease-standard);
+
+  --transition-transform: transform var(--duration-moderate) var(--ease-enter);
+
+  --transition-all-fast: all var(--duration-fast) var(--ease-standard);
+  --transition-all:      all var(--duration-normal) var(--ease-standard);
+
+  /* Untuk elemen interaktif (button, input, link) */
+  --transition-interactive: color var(--duration-fast) var(--ease-standard),
+                             background-color var(--duration-fast) var(--ease-standard),
+                             border-color var(--duration-fast) var(--ease-standard),
+                             box-shadow var(--duration-fast) var(--ease-standard),
+                             opacity var(--duration-fast) var(--ease-standard),
+                             transform var(--duration-fast) var(--ease-standard);
+
+  /* Untuk dropdown / modal masuk */
+  --transition-enter: opacity var(--duration-moderate) var(--ease-enter),
+                      transform var(--duration-moderate) var(--ease-enter);
+
+  /* Untuk dropdown / modal keluar */
+  --transition-exit:  opacity var(--duration-normal) var(--ease-exit),
+                      transform var(--duration-normal) var(--ease-exit);
+}
+
+/* ─────────────────────────────────────────
+   TRANSFORM PRESETS (untuk keyframes)
+───────────────────────────────────────── */
+:root {
+  /* Asal posisi saat masuk (sebelum animasi) */
+  --enter-from-bottom: translateY(12px);
+  --enter-from-top:    translateY(-12px);
+  --enter-from-right:  translateX(12px);
+  --enter-from-left:   translateX(-12px);
+  --enter-scale-up:    scale(0.96);
+  --enter-scale-down:  scale(1.04);
+}
+
+/* ─────────────────────────────────────────
+   KEYFRAME ANIMATIONS
+───────────────────────────────────────── */
+
+/* Fade in */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Fade in + naik (untuk dropdown, toast) */
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: var(--enter-from-bottom);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in + turun (untuk menu dropdown dari atas) */
+@keyframes slide-in-down {
+  from {
+    opacity: 0;
+    transform: var(--enter-from-top);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scale in (untuk modal, popover) */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: var(--enter-scale-up);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* Spin (loading indicator) */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Pulse (badge, status dot) */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* ─────────────────────────────────────────
+   REDUCED MOTION
+   Wajib: nonaktifkan animasi untuk pengguna yang membutuhkan
+───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration:       0.01ms !important;
+    scroll-behavior:           auto !important;
+  }
+}

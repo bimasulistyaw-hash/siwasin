@@ -1,0 +1,173 @@
+/* Dibuat oleh Bidang Sistem Informasi dan Statistik Dinas Komunikasi Informatika dan Persandian Kota Yogyakarta */
+/**
+ * DESIGN SYSTEM — SPACING, SIZING & EFFECTS TOKENS
+ * Berbasis Apple HIG 8pt Grid System
+ * Referensi: https://developer.apple.com/design/human-interface-guidelines/layout
+ */
+
+/* ─────────────────────────────────────────
+   SPACING SCALE (8pt grid)
+   Semua nilai kelipatan 4px atau 8px
+───────────────────────────────────────── */
+:root {
+  --space-0:    0px;
+  --space-1:    2px;    /* 0.5 × 4 */
+  --space-2:    4px;    /* 1 × 4   */
+  --space-3:    6px;
+  --space-4:    8px;    /* 1 × 8   — unit dasar */
+  --space-5:    10px;
+  --space-6:    12px;   /* 1.5 × 8 */
+  --space-8:    16px;   /* 2 × 8   */
+  --space-10:   20px;
+  --space-12:   24px;   /* 3 × 8   */
+  --space-14:   28px;
+  --space-16:   32px;   /* 4 × 8   */
+  --space-20:   40px;   /* 5 × 8   */
+  --space-24:   48px;   /* 6 × 8   */
+  --space-32:   64px;   /* 8 × 8   */
+  --space-40:   80px;
+  --space-48:   96px;
+  --space-64:   128px;
+}
+
+/* ─────────────────────────────────────────
+   SEMANTIC SPACING ROLES
+───────────────────────────────────────── */
+:root {
+  /* Komponen internal */
+  --gap-xs:     var(--space-2);   /* 4px  — elemen sangat rapat */
+  --gap-sm:     var(--space-4);   /* 8px  — dalam card/list item */
+  --gap-md:     var(--space-8);   /* 16px — standar antara elemen */
+  --gap-lg:     var(--space-12);  /* 24px — seksi dalam card */
+  --gap-xl:     var(--space-16);  /* 32px — antar section */
+  --gap-2xl:    var(--space-24);  /* 48px — antar section besar */
+
+  /* Padding komponen */
+  --padding-button-sm:    var(--space-2) var(--space-6);      /* 4 12 */
+  --padding-button-md:    var(--space-3) var(--space-12);     /* 6 24 */
+  --padding-button-lg:    var(--space-4) var(--space-16);     /* 8 32 */
+  --padding-input:        var(--space-3) var(--space-8);      /* 6 16 */
+  --padding-card:         var(--space-12);                    /* 24   */
+  --padding-card-sm:      var(--space-8);                     /* 16   */
+  --padding-section:      var(--space-16) var(--space-24);    /* 32 48 */
+  --padding-page:         var(--space-16);                    /* 32   */
+
+  /* Navbar */
+  --height-navbar:        56px;   /* standard HIG toolbar height */
+  --height-tabbar:        49px;   /* standard HIG tab bar height */
+  --height-input:         36px;   /* HIG compact input height */
+  --height-input-lg:      44px;   /* HIG regular touch target */
+  --height-button-sm:     28px;
+  --height-button-md:     36px;
+  --height-button-lg:     44px;   /* minimum touch target (HIG) */
+
+  /* Touch & Click Target Accessibility Tokens (Apple HIG & WCAG) */
+  --target-touch-min:     44px;   /* HIG Minimum Mobile/Tablet Touch Target (44x44px) */
+  --target-click-min:     24px;   /* HIG Minimum Desktop Pointer/Click Target (24x24px) */
+  --target-pointer-md:    32px;   /* HIG Desktop Standard Toolbar/Action Target */
+
+  /* Safe Area Insets (Mobile Notch & Dynamic Island adaptation) */
+  --safe-area-top:        env(safe-area-inset-top, 0px);
+  --safe-area-bottom:     env(safe-area-inset-bottom, 0px);
+  --safe-area-left:       env(safe-area-inset-left, 0px);
+  --safe-area-right:      env(safe-area-inset-right, 0px);
+}
+
+/* ─────────────────────────────────────────
+   BORDER RADIUS
+   Mengikuti Apple's rounded aesthetic
+───────────────────────────────────────── */
+:root {
+  --radius-xs:    4px;    /* chip kecil, badge */
+  --radius-sm:    6px;    /* tombol kecil, tag */
+  --radius-md:    10px;   /* input, button standar — Apple default */
+  --radius-lg:    14px;   /* card, panel */
+  --radius-xl:    20px;   /* modal, sheet */
+  --radius-2xl:   28px;   /* sheet besar */
+  --radius-full:  9999px; /* pill button, avatar */
+}
+
+/* ─────────────────────────────────────────
+   SHADOW / ELEVATION
+   Berbasis Apple layered elevation model
+───────────────────────────────────────── */
+:root {
+  /* Light mode shadows */
+  --shadow-xs:   0 1px 2px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.06);
+  --shadow-md:   0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06);
+  --shadow-lg:   0 8px 24px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-xl:   0 16px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-none: none;
+
+  /* Semantic elevation */
+  --elevation-card:    var(--shadow-sm);
+  --elevation-popover: var(--shadow-lg);
+  --elevation-modal:   var(--shadow-xl);
+  --elevation-navbar:  0 1px 0 var(--color-separator-opaque);
+  --elevation-input:   0 0 0 0px var(--color-tint);            /* ring saat focus */
+  --elevation-input-focus: 0 0 0 3px rgba(37,99,235,0.20);
+}
+
+[data-theme="dark"] {
+  /* Dark mode — shadow lebih kuat karena kontras rendah */
+  --shadow-xs:   0 1px 2px rgba(0,0,0,0.30);
+  --shadow-sm:   0 2px 6px rgba(0,0,0,0.35);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.40);
+  --shadow-lg:   0 8px 28px rgba(0,0,0,0.50);
+  --shadow-xl:   0 16px 48px rgba(0,0,0,0.60);
+  --elevation-input-focus: 0 0 0 3px rgba(96,165,250,0.25);
+}
+
+/* ─────────────────────────────────────────
+   BORDER / OUTLINE
+───────────────────────────────────────── */
+:root {
+  --border-width:       1px;
+  --border-width-thick: 2px;
+  --border-color:       var(--color-separator-opaque);
+  --border-color-focus: var(--color-input-border-focus);
+  --border-default:     var(--border-width) solid var(--border-color);
+}
+
+/* ─────────────────────────────────────────
+   Z-INDEX SCALE
+───────────────────────────────────────── */
+:root {
+  --z-behind:   -1;
+  --z-base:      0;
+  --z-raised:    1;
+  --z-dropdown:  100;
+  --z-sticky:    200;
+  --z-navbar:    300;
+  --z-popover:   400;
+  --z-tooltip:   500;
+  --z-modal:     600;
+  --z-overlay:   700;
+  --z-toast:     800;
+  --z-top:       900;
+}
+
+/* ─────────────────────────────────────────
+   BACKDROP / LIQUID GLASS & BLUR
+   Sesuai Apple HIG Liquid Glass & Materials:
+   Pemisahan layer fungsional vs konten + fallback
+───────────────────────────────────────── */
+:root {
+   --backdrop-navbar: blur(20px) saturate(180%);
+   --backdrop-sheet:  blur(16px) saturate(160%);
+   --backdrop-card:   blur(8px)  saturate(120%);
+
+   /* Liquid Glass Presets */
+   --glass-regular-bg:      rgba(255, 255, 255, 0.75);
+   --glass-clear-bg:        rgba(255, 255, 255, 0.50);
+   --glass-border:          rgba(255, 255, 255, 0.25);
+   --glass-dimming-layer:   rgba(15, 23, 42, 0.40); /* Dimming background for modals/sheets */
+}
+
+[data-theme="dark"], [data-theme^="dark-"] {
+   --glass-regular-bg:      rgba(15, 23, 42, 0.75);
+   --glass-clear-bg:        rgba(15, 23, 42, 0.50);
+   --glass-border:          rgba(255, 255, 255, 0.10);
+   --glass-dimming-layer:   rgba(0, 0, 0, 0.65);
+}

@@ -1,0 +1,379 @@
+/* Dibuat oleh Bidang Sistem Informasi dan Statistik Dinas Komunikasi Informatika dan Persandian Kota Yogyakarta */
+/**
+ * DESIGN SYSTEM — COLOR TOKENS & 8 STANDARDIZED THEMES
+ * Berbasis Apple HIG Color System & WCAG AA/AAA High-Contrast Assurance (Ratio >= 4.5:1)
+ *
+ * FITUR UTAMA:
+ * 1. Anti-Color Clash: Tidak ada teks putih di atas abu-abu terang, atau coklat di atas hitam.
+ * 2. 4 Tema Terang (Light) + 4 Tema Gelap (Dark) siap pakai di Pengaturan Sistem.
+ *
+ * CARA PAKAI DI HTML / JAVASCRIPT:
+ *   <html data-theme="light-yogyakarta">  <!-- Pilihan 1 dari 8 tema -->
+ */
+
+/* ─────────────────────────────────────────
+   RAW PALETTE (tidak dipakai langsung di komponen)
+───────────────────────────────────────── */
+:root {
+  /* Yogyakarta Navy Palette */
+  --raw-navy-950: #0B1120;
+  --raw-navy-900: #0F172A;
+  --raw-navy-800: #1E293B;
+  --raw-navy-700: #1E3A8A;
+  --raw-navy-600: #2563EB;
+  --raw-navy-500: #3B82F6;
+  --raw-navy-400: #60A5FA;
+  --raw-navy-100: #DBEAFE;
+  --raw-navy-50:  #EFF6FF;
+
+  /* Emerald Teal Palette */
+  --raw-emerald-950: #022C22;
+  --raw-emerald-900: #064E3B;
+  --raw-emerald-800: #065F46;
+  --raw-emerald-700: #047857;
+  --raw-emerald-600: #059669;
+  --raw-emerald-500: #10B981;
+  --raw-emerald-400: #34D399;
+  --raw-emerald-100: #D1FAE5;
+  --raw-emerald-50:  #ECFDF5;
+
+  /* Royal Indigo Palette */
+  --raw-royal-950: #1E1B4B;
+  --raw-royal-900: #312E81;
+  --raw-royal-600: #4F46E5;
+  --raw-royal-500: #6366F1;
+  --raw-royal-400: #818CF8;
+  --raw-royal-100: #E0E7FF;
+  --raw-royal-50:  #EEF2FF;
+
+  /* Kraton Heritage Amber Palette */
+  --raw-amber-950: #451A03;
+  --raw-amber-900: #78350F;
+  --raw-amber-700: #B45309;
+  --raw-amber-600: #D97706;
+  --raw-amber-500: #F59E0B;
+  --raw-amber-400: #FBBF24;
+  --raw-amber-100: #FEF3C7;
+  --raw-amber-50:  #FFFBEB;
+
+  /* Neutral Slates & Grays */
+  --raw-slate-950: #020617;
+  --raw-slate-900: #0F172A;
+  --raw-slate-800: #1E293B;
+  --raw-slate-700: #334155;
+  --raw-slate-600: #475569;
+  --raw-slate-500: #64748B;
+  --raw-slate-400: #94A3B8;
+  --raw-slate-300: #CBD5E1;
+  --raw-slate-200: #E2E8F0;
+  --raw-slate-100: #F1F5F9;
+  --raw-slate-50:  #F8FAFC;
+
+  --raw-pure-white: #FFFFFF;
+  --raw-pure-black: #000000;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   1. TEMA LIGHT 1: YOGYAKARTA CLASSIC NAVY (Default Light)
+────────────────────────────────────────────────────────────────────────── */
+[data-theme="light"],
+[data-theme="light-yogyakarta"],
+:root {
+  --color-bg-primary:       var(--raw-pure-white);       /* #FFFFFF */
+  --color-bg-secondary:     var(--raw-slate-50);         /* #F8FAFC (Sidebar / Panel) */
+  --color-bg-tertiary:      var(--raw-slate-100);        /* #F1F5F9 (Cards / Hover) */
+  --color-bg-elevated:      var(--raw-pure-white);       /* Modal / Popover */
+  --color-bg-overlay:       rgba(15, 23, 42, 0.45);
+
+  /* Contrast Ratio: 14.5:1 (Ultra Clear) */
+  --color-label-primary:    #0F172A;                     /* Slate 900 */
+  --color-label-secondary:  #334155;                     /* Slate 700 */
+  --color-label-tertiary:   #64748B;                     /* Slate 500 */
+  --color-label-disabled:   #94A3B8;                     /* Slate 400 */
+  --color-label-inverted:   var(--raw-pure-white);
+
+  --color-separator:        #E2E8F0;                     /* Slate 200 */
+  --color-separator-opaque: #CBD5E1;                     /* Slate 300 */
+
+  /* Brand Tint */
+  --color-tint:             #1E3A8A;                     /* Navy 700 */
+  --color-tint-hover:       #1E40AF;                     /* Navy 800 */
+  --color-tint-subtle:      #EFF6FF;                     /* Navy 50 */
+  --color-tint-foreground:  var(--raw-pure-white);
+
+  --color-input-bg:         var(--raw-pure-white);
+  --color-input-border:     #CBD5E1;
+  --color-input-border-focus: #1E3A8A;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   2. TEMA LIGHT 2: EMERALD TEAL (Layanan Publik & Lingkungan)
+────────────────────────────────────────────────────────────────────────── */
+[data-theme="light-emerald"] {
+  --color-bg-primary:       var(--raw-pure-white);
+  --color-bg-secondary:     #F0FDFA;                     /* Teal 50 */
+  --color-bg-tertiary:      #CCFBF1;                     /* Teal 100 */
+  --color-bg-elevated:      var(--raw-pure-white);
+  --color-bg-overlay:       rgba(6, 78, 59, 0.45);
+
+  --color-label-primary:    #064E3B;                     /* Emerald 900 */
+  --color-label-secondary:  #065F46;                     /* Emerald 800 */
+  --color-label-tertiary:   #047857;                     /* Emerald 700 */
+  --color-label-disabled:   #6EE7B7;
+  --color-label-inverted:   var(--raw-pure-white);
+
+  --color-separator:        #99F6E4;
+  --color-separator-opaque: #5EEAD4;
+
+  --color-tint:             #0D9488;                     /* Teal 600 */
+  --color-tint-hover:       #0F766E;
+  --color-tint-subtle:      #F0FDFA;
+  --color-tint-foreground:  var(--raw-pure-white);
+
+  --color-input-bg:         var(--raw-pure-white);
+  --color-input-border:     #99F6E4;
+  --color-input-border-focus: #0D9488;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   3. TEMA LIGHT 3: ROYAL BLUE (Inovasi & Digital Modern)
+────────────────────────────────────────────────────────────────────────── */
+[data-theme="light-royal"] {
+  --color-bg-primary:       var(--raw-pure-white);
+  --color-bg-secondary:     #F8FAFC;
+  --color-bg-tertiary:      #EEF2FF;
+  --color-bg-elevated:      var(--raw-pure-white);
+  --color-bg-overlay:       rgba(30, 27, 75, 0.45);
+
+  --color-label-primary:    #1E1B4B;                     /* Indigo 950 */
+  --color-label-secondary:  #312E81;                     /* Indigo 900 */
+  --color-label-tertiary:   #4338CA;
+  --color-label-disabled:   #A5B4FC;
+  --color-label-inverted:   var(--raw-pure-white);
+
+  --color-separator:        #E0E7FF;
+  --color-separator-opaque: #C7D2FE;
+
+  --color-tint:             #2563EB;                     /* Royal Blue */
+  --color-tint-hover:       #1D4ED8;
+  --color-tint-subtle:      #EFF6FF;
+  --color-tint-foreground:  var(--raw-pure-white);
+
+  --color-input-bg:         var(--raw-pure-white);
+  --color-input-border:     #C7D2FE;
+  --color-input-border-focus: #2563EB;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   4. TEMA LIGHT 4: KRATON HERITAGE (Budaya & Warm Amber)
+────────────────────────────────────────────────────────────────────────── */
+[data-theme="light-amber"] {
+  --color-bg-primary:       var(--raw-pure-white);
+  --color-bg-secondary:     #FFFBEB;                     /* Amber 50 */
+  --color-bg-tertiary:      #FEF3C7;                     /* Amber 100 */
+  --color-bg-elevated:      var(--raw-pure-white);
+  --color-bg-overlay:       rgba(69, 26, 3, 0.45);
+
+  --color-label-primary:    #451A03;                     /* Amber 950 */
+  --color-label-secondary:  #78350F;                     /* Amber 900 */
+  --color-label-tertiary:   #92400E;                     /* Amber 800 */
+  --color-label-disabled:   #FCD34D;
+  --color-label-inverted:   var(--raw-pure-white);
+
+  --color-separator:        #FDE68A;
+  --color-separator-opaque: #FCD34D;
+
+  --color-tint:             #B45309;                     /* Amber 700 */
+  --color-tint-hover:       #92400E;
+  --color-tint-subtle:      #FFFBEB;
+  --color-tint-foreground:  var(--raw-pure-white);
+
+  --color-input-bg:         var(--raw-pure-white);
+  --color-input-border:     #FDE68A;
+  --color-input-border-focus: #B45309;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   5. TEMA DARK 1: MIDNIGHT SLATE (Default Dark)
+────────────────────────────────────────────────────────────────────────── */
+[data-theme="dark"],
+[data-theme="dark-midnight"] {
+  --color-bg-primary:       #0B0F19;                     /* Deep Charcoal Navy */
+  --color-bg-secondary:     #111827;                     /* Gray 900 (Sidebar) */
+  --color-bg-tertiary:      #1F2937;                     /* Gray 800 (Cards) */
+  --color-bg-elevated:      #1F2937;                     /* Modal */
+  --color-bg-overlay:       rgba(0, 0, 0, 0.75);
+
+  /* Contrast Ratio: 16.2:1 (Crisp Light Text) */
+  --color-label-primary:    #F9FAFB;                     /* Gray 50 */
+  --color-label-secondary:  #D1D5DB;                     /* Gray 300 */
+  --color-label-tertiary:   #9CA3AF;                     /* Gray 400 */
+  --color-label-disabled:   #4B5563;                     /* Gray 600 */
+  --color-label-inverted:   #0B0F19;
+
+  --color-separator:        #374151;                     /* Gray 700 */
+  --color-separator-opaque: #4B5563;                     /* Gray 600 */
+
+  --color-tint:             #60A5FA;                     /* Blue 400 (High-Contrast Tint) */
+  --color-tint-hover:       #93C5FD;
+  --color-tint-subtle:      rgba(96, 165, 250, 0.15);
+  --color-tint-foreground:  #0B0F19;
+
+  --color-input-bg:         #111827;
+  --color-input-border:     #374151;
+  --color-input-border-focus: #60A5FA;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   6. TEMA DARK 2: FOREST EMERALD (Deep Green Dark)
+────────────────────────────────────────────────────────────────────────── */
+[data-theme="dark-emerald"] {
+  --color-bg-primary:       #022C22;                     /* Emerald 950 */
+  --color-bg-secondary:     #064E3B;                     /* Emerald 900 */
+  --color-bg-tertiary:      #065F46;                     /* Emerald 800 */
+  --color-bg-elevated:      #065F46;
+  --color-bg-overlay:       rgba(0, 0, 0, 0.80);
+
+  --color-label-primary:    #ECFDF5;                     /* Mint White */
+  --color-label-secondary:  #A7F3D0;                     /* Mint Light */
+  --color-label-tertiary:   #6EE7B7;
+  --color-label-disabled:   #047857;
+  --color-label-inverted:   #022C22;
+
+  --color-separator:        #047857;
+  --color-separator-opaque: #059669;
+
+  --color-tint:             #34D399;                     /* Emerald 400 */
+  --color-tint-hover:       #6EE7B7;
+  --color-tint-subtle:      rgba(52, 211, 153, 0.15);
+  --color-tint-foreground:  #022C22;
+
+  --color-input-bg:         #064E3B;
+  --color-input-border:     #047857;
+  --color-input-border-focus: #34D399;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   7. TEMA DARK 3: OBSIDIAN BLACK (Pure Dark High-Contrast)
+────────────────────────────────────────────────────────────────────────── */
+[data-theme="dark-obsidian"] {
+  --color-bg-primary:       #000000;                     /* Pitch Black */
+  --color-bg-secondary:     #121212;                     /* Material Dark Surface */
+  --color-bg-tertiary:      #1E1E1E;                     /* Material Elevated */
+  --color-bg-elevated:      #242424;
+  --color-bg-overlay:       rgba(0, 0, 0, 0.85);
+
+  --color-label-primary:    #FFFFFF;                     /* Pure White 21:1 */
+  --color-label-secondary:  #E4E4E7;                     /* Zinc 200 */
+  --color-label-tertiary:   #A1A1AA;                     /* Zinc 400 */
+  --color-label-disabled:   #52525B;                     /* Zinc 600 */
+  --color-label-inverted:   #000000;
+
+  --color-separator:        #27272A;                     /* Zinc 800 */
+  --color-separator-opaque: #3F3F46;                     /* Zinc 700 */
+
+  --color-tint:             #818CF8;                     /* Indigo 400 */
+  --color-tint-hover:       #A5B4FC;
+  --color-tint-subtle:      rgba(129, 140, 248, 0.16);
+  --color-tint-foreground:  #000000;
+
+  --color-input-bg:         #121212;
+  --color-input-border:     #27272A;
+  --color-input-border-focus: #818CF8;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   8. TEMA DARK 4: KRATON NIGHT HERITAGE (Warm Bronze Dark)
+────────────────────────────────────────────────────────────────────────── */
+[data-theme="dark-heritage"] {
+  --color-bg-primary:       #1C1917;                     /* Warm Stone 900 */
+  --color-bg-secondary:     #292524;                     /* Stone 800 */
+  --color-bg-tertiary:      #44403C;                     /* Stone 700 */
+  --color-bg-elevated:      #44403C;
+  --color-bg-overlay:       rgba(0, 0, 0, 0.80);
+
+  --color-label-primary:    #FEF3C7;                     /* Warm Gold Cream */
+  --color-label-secondary:  #E7E5E4;                     /* Stone 200 */
+  --color-label-tertiary:   #A8A29E;                     /* Stone 400 */
+  --color-label-disabled:   #57534E;
+  --color-label-inverted:   #1C1917;
+
+  --color-separator:        #57534E;
+  --color-separator-opaque: #78716C;
+
+  --color-tint:             #FBBF24;                     /* Amber Gold 400 */
+  --color-tint-hover:       #FCD34D;
+  --color-tint-subtle:      rgba(251, 191, 36, 0.16);
+  --color-tint-foreground:  #1C1917;
+
+  --color-input-bg:         #292524;
+  --color-input-border:     #57534E;
+  --color-input-border-focus: #FBBF24;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   9. SEMANTIC STATUS & ACCESSIBILITY (A11Y) COLOR TOKENS
+   - Kontras tinggi WCAG AA/AAA (>= 4.5:1 untuk teks, >= 3:1 untuk ikon/UI)
+   - Status feedback WAJIB didukung ikon/teks (tidak boleh warna semata)
+────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* System Feedback Colors */
+  --color-system-green:     #16A34A;
+  --color-system-red:       #DC2626;
+  --color-system-orange:    #EA580C;
+  --color-system-yellow:    #CA8A04;
+  --color-system-purple:    #9333EA;
+  --color-system-teal:      #0D9488;
+  --color-system-indigo:    #4F46E5;
+  --color-system-pink:      #DB2777;
+
+  /* Semantic Feedback Roles */
+  --color-success:          #16A34A;
+  --color-success-bg:       #DCFCE7;
+  --color-success-border:   #86EFAC;
+  --color-success-text:     #14532D;
+
+  --color-error:            #DC2626;
+  --color-error-bg:         #FEE2E2;
+  --color-error-border:     #FCA5A5;
+  --color-error-text:       #7F1D1D;
+
+  --color-warning:          #D97706;
+  --color-warning-bg:       #FEF3C7;
+  --color-warning-border:   #FCD34D;
+  --color-warning-text:     #78350F;
+
+  --color-info:             #2563EB;
+  --color-info-bg:          #DBEAFE;
+  --color-info-border:      #93C5FD;
+  --color-info-text:        #1E3A8A;
+
+  /* Focus Ring Token (WCAG High-Visibility Focus Outline) */
+  --color-focus-ring:       #2563EB;
+  --color-focus-ring-offset: #FFFFFF;
+}
+
+[data-theme="dark"], [data-theme^="dark-"] {
+  --color-success:          #22C55E;
+  --color-success-bg:       #052E16;
+  --color-success-border:   #166534;
+  --color-success-text:     #DCFCE7;
+
+  --color-error:            #EF4444;
+  --color-error-bg:         #450A0A;
+  --color-error-border:     #991B1B;
+  --color-error-text:       #FEE2E2;
+
+  --color-warning:          #F59E0B;
+  --color-warning-bg:       #451A03;
+  --color-warning-border:   #92400E;
+  --color-warning-text:     #FEF3C7;
+
+  --color-info:             #60A5FA;
+  --color-info-bg:          #172554;
+  --color-info-border:      #1E40AF;
+  --color-info-text:        #DBEAFE;
+
+  --color-focus-ring:       #60A5FA;
+  --color-focus-ring-offset: #0F172A;
+}

@@ -1,0 +1,132 @@
+/* Dibuat oleh Bidang Sistem Informasi dan Statistik Dinas Komunikasi Informatika dan Persandian Kota Yogyakarta */
+/**
+ * DESIGN SYSTEM — TYPOGRAPHY TOKENS
+ * Berbasis Apple HIG Typography System
+ * Referensi: https://developer.apple.com/design/human-interface-guidelines/typography
+ *
+ * Font stack: system-ui mengikuti font sistem pengguna (SF Pro di Apple, Segoe UI di Windows)
+ * Scale: HIG Text Styles yang diadaptasi untuk web
+ */
+
+/* ─────────────────────────────────────────
+   FONT FAMILY
+───────────────────────────────────────── */
+:root {
+  /* Primary: mengikuti system font (SF Pro di macOS/iOS, Segoe UI di Windows) */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+               "Inter", system-ui, sans-serif;
+
+  /* Monospace: untuk kode, ID, token */
+  --font-mono: "SF Mono", "Fira Code", "Cascadia Code", "Consolas",
+               ui-monospace, monospace;
+
+  /* Rounded: untuk tombol & badge (opsional, hanya jika menggunakan Inter) */
+  --font-rounded: "SF Pro Rounded", "Inter", var(--font-sans);
+}
+
+/* ─────────────────────────────────────────
+   FONT SIZE SCALE
+   Mengikuti Apple HIG Text Styles (dikonversi ke rem)
+   Base: 16px = 1rem
+───────────────────────────────────────── */
+:root {
+  --text-xs:    0.6875rem;  /* 11px — Caption 2 */
+  --text-sm:    0.75rem;    /* 12px — Caption 1 */
+  --text-base:  0.8125rem;  /* 13px — Footnote */
+  --text-md:    0.9375rem;  /* 15px — Subheadline */
+  --text-lg:    1rem;       /* 16px — Callout */
+  --text-xl:    1.0625rem;  /* 17px — Body (HIG default) */
+  --text-2xl:   1.1875rem;  /* 19px — Headline */
+  --text-3xl:   1.375rem;   /* 22px — Title 3 */
+  --text-4xl:   1.75rem;    /* 28px — Title 2 */
+  --text-5xl:   2.125rem;   /* 34px — Title 1 */
+  --text-6xl:   2.625rem;   /* 42px — Large Title */
+}
+
+/* ─────────────────────────────────────────
+   FONT WEIGHT
+───────────────────────────────────────── */
+:root {
+  --font-thin:       100;
+  --font-light:      300;
+  --font-regular:    400;
+  --font-medium:     500;
+  --font-semibold:   600;
+  --font-bold:       700;
+  --font-heavy:      800;
+  --font-black:      900;
+}
+
+/* ─────────────────────────────────────────
+   LINE HEIGHT
+───────────────────────────────────────── */
+:root {
+  --leading-tight:   1.2;   /* heading */
+  --leading-snug:    1.35;  /* subheading */
+  --leading-normal:  1.5;   /* body text */
+  --leading-relaxed: 1.65;  /* panjang/artikel */
+  --leading-loose:   2.0;   /* code / tabular */
+}
+
+/* ─────────────────────────────────────────
+   LETTER SPACING
+───────────────────────────────────────── */
+:root {
+  --tracking-tight:  -0.03em;  /* large heading */
+  --tracking-snug:   -0.01em;  /* medium heading */
+  --tracking-normal:  0em;
+  --tracking-wide:    0.01em;  /* uppercase label */
+  --tracking-wider:   0.05em;  /* all-caps badge */
+}
+
+/* ─────────────────────────────────────────
+   SEMANTIC TYPOGRAPHY ROLES
+   Gunakan variable ini di komponen
+───────────────────────────────────────── */
+:root {
+  /* Text Styles — Apple HIG Named Styles */
+  --type-large-title: var(--font-bold) var(--text-6xl)/var(--leading-tight) var(--font-sans);
+  --type-title-1:     var(--font-bold) var(--text-5xl)/var(--leading-tight) var(--font-sans);
+  --type-title-2:     var(--font-bold) var(--text-4xl)/var(--leading-tight) var(--font-sans);
+  --type-title-3:     var(--font-semibold) var(--text-3xl)/var(--leading-snug) var(--font-sans);
+  --type-headline:    var(--font-semibold) var(--text-2xl)/var(--leading-snug) var(--font-sans);
+  --type-body:        var(--font-regular) var(--text-xl)/var(--leading-normal) var(--font-sans);
+  --type-callout:     var(--font-regular) var(--text-lg)/var(--leading-normal) var(--font-sans);
+  --type-subheadline: var(--font-medium) var(--text-md)/var(--leading-normal) var(--font-sans);
+  --type-footnote:    var(--font-regular) var(--text-base)/var(--leading-normal) var(--font-sans);
+  --type-caption-1:   var(--font-regular) var(--text-sm)/var(--leading-normal) var(--font-sans);
+  --type-caption-2:   var(--font-medium) var(--text-xs)/var(--leading-normal) var(--font-sans);
+  --type-code:        var(--font-regular) var(--text-base)/var(--leading-loose) var(--font-mono);
+  --type-label-upper: var(--font-semibold) var(--text-xs)/var(--leading-normal) var(--font-sans);
+}
+
+/* ─────────────────────────────────────────
+   BASE HTML TYPOGRAPHY & DYNAMIC SCALING
+───────────────────────────────────────── */
+html {
+  font-family: var(--font-sans);
+  font-size: 16px; /* Base dynamic root: respects browser/OS scalable text settings */
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font: var(--type-body);
+  color: var(--color-label-primary);
+  background-color: var(--color-bg-primary);
+}
+
+/* ─────────────────────────────────────────
+   MICROCOPY & CONTENT RULES (Apple HIG)
+   - Sentence case untuk judul, tombol, label (bukan ALL CAPS)
+   - Label eksplisit, placeholder hanya hint
+───────────────────────────────────────── */
+.ui-sentence-case {
+  text-transform: none; /* Cegah pemaksaan uppercase */
+}
+
+.ui-tabular-nums {
+  font-variant-numeric: tabular-nums; /* Angka rata monospaced untuk tabel keuangan/data */
+}
