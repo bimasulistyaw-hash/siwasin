@@ -383,6 +383,38 @@ flowchart TD
 
 ---
 
+### ⚡ JALUR KHUSUS — Audit Non-PKPT (Penugasan Insidental)
+
+> **Konteks:** Digunakan saat ada permintaan audit di tengah periode berjalan (injeksi jadwal) di luar kalender PKPT resmi (misal: Atensi Walikota, KPK, atau Aduan Masyarakat viral).
+
+```mermaid
+flowchart TD
+    START(["Instruksi Mendadak\n(KPK / Pimpinan / Aduan)"])
+    
+    START --> MENU["Irban Akses Menu Khusus\n'Buat Penugasan Non-PKPT'"]
+    
+    MENU --> BYPASS["Bypass Fase 1 & 2\n(Tidak lewat Risk Scoring)"]
+    
+    BYPASS --> TARGET["Pilih OPD Target\n(Single / Multi-Obrik)"]
+    
+    TARGET --> DOC["Upload Dasar Penugasan\n(Contoh: Surat Perintah KPK)"]
+    
+    DOC --> FASE3["Masuk ke Alur Fase 3\n(Susun Tim & Jadwal)"]
+    
+    FASE3 --> CLASH{"Clash Detection?"}
+    
+    CLASH -- Tidak Bentrok --> NORMAL["Lanjut Normal"]
+    
+    CLASH -- Bentrok Jadwal --> OVERRIDE["Sistem izinkan Override\nWajib isi Justifikasi Perangkapan"]
+    
+    OVERRIDE --> DRAFT
+    NORMAL --> DRAFT["Draft ST Terbentuk\nFlag: MANDATORI / NON-PKPT"]
+    
+    DRAFT --> FASE4([Injeksi langsung ke Fase 4:\nApproval Berjenjang])
+```
+
+---
+
 ### 🔴 FASE 4 — Approval Berjenjang *(Aktor: Daltek, PPJ, Inspektur — Zero Bypass)*
 
 ```mermaid
